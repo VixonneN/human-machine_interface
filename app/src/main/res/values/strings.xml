@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">human-machine interface</string>
+
+        <!-- TODO: Remove or change this placeholder text -->
+        <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="value">Расчитать</string>
+    <string name="type_connection">Выберите тип соединения</string>
+    <string name="number_of_elements">Выберите количество элементов</string>
+    <string name="rn1_tv">Rn1</string>
+    <string name="rn2_tv">Rn2</string>
+    <string name="rn4_tv">Rn4</string>
+    <string name="rn5_tv">Rn5</string>
+    <string name="rn3_tv">Rn3</string>
+    <string name="rn6_tv">Rn6</string>
+    <string name="formula">Используемая формула:</string>
+</resources>
+
