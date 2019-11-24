@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,7 +20,7 @@ import com.example.myapplication.data_class.TypeOfConnectionData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements InformationFragment.OnFragmentInteractionListener {
 
     private TextView tv1, tv2, tv3, tv4, tv5, tv6;
     private EditText et1, et2, et3, et4, et5, et6;
@@ -29,11 +30,19 @@ public class MainActivity extends AppCompatActivity {
     private Button button;
     private Spinner numberSpinner, typeSpinner;
     private ResultDialogFragment dialogFragment;
+    private static String LOG = "12312312312312312312312312";
+    private InformationFragment informationFragment = new InformationFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.activity_main_frame, informationFragment)
+                .commit();
+
         et1 = findViewById(R.id.et_r1);
         et2 = findViewById(R.id.et_r2);
         et3 = findViewById(R.id.et_r3);
@@ -92,22 +101,22 @@ public class MainActivity extends AppCompatActivity {
                     idNumber = number.getId();
                     switch (idNumber) {
                         case (1):
-                            idNumberOne();
+                            idOne();
                             break;
                         case (2):
-                            idNumberTwo();
+                            idTwo();
                             break;
                         case (3):
-                            idNumberThree();
+                            idThree();
                             break;
                         case (4):
-                            idNumberFour();
+                            idFour();
                             break;
                         case (5):
-                            idNumberFive();
+                            idFive();
                             break;
                         case (6):
-                            idNumberSix();
+                            idSix();
                             break;
                     }
                 } else {
@@ -145,37 +154,72 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (idNumber) {
-                    case (1):
-                        idNumberOne();
-                        break;
-                    case (2):
-                        idNumberTwo();
-                        break;
-                    case (3):
-                        idNumberThree();
-                        break;
-                    case (4):
-                        idNumberFour();
-                        break;
-                    case (5):
-                        idNumberFive();
-                        break;
-                    case (6):
-                        idNumberSix();
-                        break;
+                try {
+                    switch (idNumber) {
+                        case (1):
+                            idNumberOne();
+                            break;
+                        case (2):
+                            etS1 = Double.valueOf(et1.getText().toString());
+                            etS2 = Double.valueOf(et2.getText().toString());
+                            idNumberTwo(etS1, etS2);
+                            break;
+                        case (3):
+                            etS1 = Double.valueOf(et1.getText().toString());
+                            etS2 = Double.valueOf(et2.getText().toString());
+                            etS3 = Double.valueOf(et3.getText().toString());
+                            idNumberThree(etS1, etS2, etS3);
+                            break;
+                        case (4):
+                            etS1 = Double.valueOf(et1.getText().toString());
+                            etS2 = Double.valueOf(et2.getText().toString());
+                            etS3 = Double.valueOf(et3.getText().toString());
+                            etS4 = Double.valueOf(et4.getText().toString());
+                            idNumberFour(etS1, etS2, etS3, etS4);
+                            break;
+                        case (5):
+                            etS1 = Double.valueOf(et1.getText().toString());
+                            etS2 = Double.valueOf(et2.getText().toString());
+                            etS3 = Double.valueOf(et3.getText().toString());
+                            etS4 = Double.valueOf(et4.getText().toString());
+                            etS5 = Double.valueOf(et5.getText().toString());
+                            idNumberFive(etS1, etS2, etS3, etS4, etS5);
+                            break;
+                        case (6):
+                            etS1 = Double.valueOf(et1.getText().toString());
+                            etS2 = Double.valueOf(et2.getText().toString());
+                            etS3 = Double.valueOf(et3.getText().toString());
+                            etS4 = Double.valueOf(et4.getText().toString());
+                            etS5 = Double.valueOf(et5.getText().toString());
+                            etS6 = Double.valueOf(et6.getText().toString());
+                            idNumberSix(etS1, etS2, etS3, etS4, etS5, etS6);
+                            break;
+                    }
+                } catch (NumberFormatException number) {
+                        Toast.makeText(MainActivity.this, "Проверьте значения на наличие данных", Toast.LENGTH_SHORT).show();
                 }
 
-                Bundle bundle = new Bundle();
-                bundle.putInt("idType", idType);
-                bundle.putDouble("r0", r0);
-                dialogFragment.setArguments(bundle);
-                dialogFragment.show(getSupportFragmentManager(), "Dialog");
+                Log.d(LOG, String.valueOf(etS1));
+                Log.d(LOG, String.valueOf(etS2));
+                Log.d(LOG, String.valueOf(etS3));
+                Log.d(LOG, String.valueOf(etS4));
+                Log.d(LOG, String.valueOf(etS5));
+                Log.d(LOG, String.valueOf(etS6));
+
+                if (etS1 <= 0 || etS2 <= 0 || etS3 <= 0 || etS4 <= 0 || etS5 <= 0 || etS6 <= 0) {
+                    Toast.makeText(MainActivity.this, "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
+                } else {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("idType", idType);
+                    bundle.putDouble("r0", r0);
+                    dialogFragment.setArguments(bundle);
+                    dialogFragment.show(getSupportFragmentManager(), "Dialog");
+                }
             }
         });
     }
 
-    private void idNumberOne() {
+    private void idOne() {
         et1.setVisibility(View.VISIBLE);
         et2.setVisibility(View.INVISIBLE);
         et3.setVisibility(View.INVISIBLE);
@@ -184,14 +228,19 @@ public class MainActivity extends AppCompatActivity {
         et6.setVisibility(View.INVISIBLE);
         tv1.setVisibility(View.VISIBLE);
         tv2.setVisibility(View.INVISIBLE);
+        tv1.setEnabled(true);
+        tv2.setEnabled(false);
+        tv3.setEnabled(false);
+        tv4.setEnabled(false);
+        tv5.setEnabled(false);
+        tv6.setEnabled(false);
         tv3.setVisibility(View.INVISIBLE);
         tv4.setVisibility(View.INVISIBLE);
         tv5.setVisibility(View.INVISIBLE);
         tv6.setVisibility(View.INVISIBLE);
-        Toast.makeText(MainActivity.this, "Выберите больше одного аргумента", Toast.LENGTH_SHORT).show();
     }
 
-    private void idNumberTwo() {
+    private void idTwo() {
         et1.setVisibility(View.VISIBLE);
         et2.setVisibility(View.VISIBLE);
         et3.setVisibility(View.INVISIBLE);
@@ -204,19 +253,15 @@ public class MainActivity extends AppCompatActivity {
         tv4.setVisibility(View.INVISIBLE);
         tv5.setVisibility(View.INVISIBLE);
         tv6.setVisibility(View.INVISIBLE);
-        if (button.isPressed()) {
-            etS1 = Double.valueOf(et1.getText().toString());
-            etS2 = Double.valueOf(et2.getText().toString());
-            if (idType == 1) {
-                r0 = (etS1 * etS2) / (etS1 + etS2);
-            } else if (idType == 2) {
-                r0 = etS1 + etS2;
-            }
-            Toast.makeText(this, String.valueOf(r0), Toast.LENGTH_SHORT).show();
-        }
+        tv1.setEnabled(true);
+        tv2.setEnabled(true);
+        tv3.setEnabled(false);
+        tv4.setEnabled(false);
+        tv5.setEnabled(false);
+        tv6.setEnabled(false);
     }
 
-    private void idNumberThree() {
+    private void idThree() {
         et1.setVisibility(View.VISIBLE);
         et2.setVisibility(View.VISIBLE);
         et3.setVisibility(View.VISIBLE);
@@ -229,20 +274,15 @@ public class MainActivity extends AppCompatActivity {
         tv4.setVisibility(View.INVISIBLE);
         tv5.setVisibility(View.INVISIBLE);
         tv6.setVisibility(View.INVISIBLE);
-        if (button.isPressed()) {
-            etS1 = Double.valueOf(et1.getText().toString());
-            etS2 = Double.valueOf(et2.getText().toString());
-            etS3 = Double.valueOf(et3.getText().toString());
-            if (idType == 1) {
-                r0 = 1 / etS1 + 1 / etS2 + 1 / etS3;//  1/r0
-            } else if (idType == 2) {
-                r0 = etS1 + etS2 + etS3;
-            }
-            Toast.makeText(this, String.valueOf(r0), Toast.LENGTH_SHORT).show();
-        }
+        tv1.setEnabled(true);
+        tv2.setEnabled(true);
+        tv3.setEnabled(true);
+        tv4.setEnabled(false);
+        tv5.setEnabled(false);
+        tv6.setEnabled(false);
     }
 
-    private void idNumberFour() {
+    private void idFour() {
         et1.setVisibility(View.VISIBLE);
         et2.setVisibility(View.VISIBLE);
         et3.setVisibility(View.VISIBLE);
@@ -255,21 +295,16 @@ public class MainActivity extends AppCompatActivity {
         tv4.setVisibility(View.VISIBLE);
         tv5.setVisibility(View.INVISIBLE);
         tv6.setVisibility(View.INVISIBLE);
-        if (button.isPressed()) {
-            etS1 = Double.valueOf(et1.getText().toString());
-            etS2 = Double.valueOf(et2.getText().toString());
-            etS3 = Double.valueOf(et3.getText().toString());
-            etS4 = Double.valueOf(et4.getText().toString());
-            if (idType == 1) {
-                r0 = 1 / etS1 + 1 / etS2 + 1 / etS3 + 1 / etS4;//  1/r0
-            } else if (idType == 2) {
-                r0 = etS1 + etS2 + etS3 + etS4;
-            }
-            Toast.makeText(this, String.valueOf(r0), Toast.LENGTH_SHORT).show();
-        }
+        tv1.setEnabled(true);
+        tv2.setEnabled(true);
+        tv3.setEnabled(true);
+        tv4.setEnabled(true);
+        tv5.setEnabled(false);
+        tv6.setEnabled(false);
+
     }
 
-    private void idNumberFive() {
+    private void idFive() {
         et1.setVisibility(View.VISIBLE);
         et2.setVisibility(View.VISIBLE);
         et3.setVisibility(View.VISIBLE);
@@ -282,24 +317,16 @@ public class MainActivity extends AppCompatActivity {
         tv4.setVisibility(View.VISIBLE);
         tv5.setVisibility(View.VISIBLE);
         tv6.setVisibility(View.INVISIBLE);
+        tv1.setEnabled(true);
+        tv2.setEnabled(true);
+        tv3.setEnabled(true);
+        tv4.setEnabled(true);
+        tv5.setEnabled(true);
+        tv6.setEnabled(false);
 
-        if (button.isPressed()) {
-            etS1 = Double.valueOf(et1.getText().toString());
-            etS2 = Double.valueOf(et2.getText().toString());
-            etS3 = Double.valueOf(et3.getText().toString());
-            etS4 = Double.valueOf(et4.getText().toString());
-            etS5 = Double.valueOf(et5.getText().toString());
-
-            if (idType == 1) {
-                r0 = 1 / etS1 + 1 / etS2 + 1 / etS3 + 1 / etS4 + 1 / etS5;//  1/r0
-            } else if (idType == 2) {
-                r0 = etS1 + etS2 + etS3 + etS4 + etS5;
-            }
-            Toast.makeText(this, String.valueOf(r0), Toast.LENGTH_SHORT).show();
-        }
     }
 
-    private void idNumberSix() {
+    private void idSix() {
         et1.setVisibility(View.VISIBLE);
         et2.setVisibility(View.VISIBLE);
         et3.setVisibility(View.VISIBLE);
@@ -312,22 +339,12 @@ public class MainActivity extends AppCompatActivity {
         tv4.setVisibility(View.VISIBLE);
         tv5.setVisibility(View.VISIBLE);
         tv6.setVisibility(View.VISIBLE);
-        if (button.isPressed()) {
-            etS1 = Double.valueOf(et1.getText().toString());
-            etS2 = Double.valueOf(et2.getText().toString());
-            etS3 = Double.valueOf(et3.getText().toString());
-            etS4 = Double.valueOf(et4.getText().toString());
-            etS5 = Double.valueOf(et5.getText().toString());
-            etS6 = Double.valueOf(et6.getText().toString());
-
-            if (idType == 1) {
-                r0 = 1 / etS1 + 1 / etS2 + 1 / etS3 + 1 / etS4 + 1 / etS5 + 1 / etS6;//  1/r0
-            } else if (idType == 2) {
-                r0 = etS1 + etS2 + etS3 + etS4 + etS5 + etS6;
-            }
-            Toast.makeText(this, String.valueOf(r0), Toast.LENGTH_SHORT).show();
-        }
-
+        tv1.setEnabled(true);
+        tv2.setEnabled(true);
+        tv3.setEnabled(true);
+        tv4.setEnabled(true);
+        tv5.setEnabled(true);
+        tv6.setEnabled(true);
     }
 
     private void allInvisible() {
@@ -344,5 +361,69 @@ public class MainActivity extends AppCompatActivity {
         et4.setVisibility(View.INVISIBLE);
         et5.setVisibility(View.INVISIBLE);
         et6.setVisibility(View.INVISIBLE);
+
+        tv1.setEnabled(false);
+        tv2.setEnabled(false);
+        tv3.setEnabled(false);
+        tv4.setEnabled(false);
+        tv5.setEnabled(false);
+        tv6.setEnabled(false);
+    }
+
+    private void idNumberOne() {
+        Toast.makeText(MainActivity.this, "Выберите больше одного аргумента", Toast.LENGTH_SHORT).show();
+    }
+
+    private void idNumberTwo(double number1, double number2) {
+        if (idType == 1 && number1 > 0 && number2 > 0) {
+            r0 = (number1 * number2) / (number1 + number2);
+        } else if (idType == 2 && number1 > 0 && number2 > 0) {
+            r0 = number1 + number2;
+        }
+//            Toast.makeText(this, String.valueOf(r0), Toast.LENGTH_SHORT).show();
+    }
+
+    private void idNumberThree(double number1, double number2, double number3) {
+        if (idType == 1 && number1 > 0 && number2 > 0 && number3 > 0) {
+            r0 = 1 / number1 + 1 / number2 + 1 / number3;//  1/r0
+        } else if (idType == 2 && number1 > 0 && number2 > 0 && number3 > 0) {
+            r0 = number1 + number2 + number3;
+        }
+//            Toast.makeText(this, String.valueOf(r0), Toast.LENGTH_SHORT).show();
+    }
+
+    private void idNumberFour(double number1, double number2, double number3, double number4) {
+        if (idType == 1 && number1 > 0 && number2 > 0 && number3 > 0 && number4 > 0) {
+            r0 = 1 / number1 + 1 / number2 + 1 / number3 + 1 / number4;//  1/r0
+        } else if (idType == 2 && number1 > 0 && number2 > 0 && number3 > 0 && number4 > 0) {
+            r0 = number1 + number2 + number3 + number4;
+        }
+//            Toast.makeText(this, String.valueOf(r0), Toast.LENGTH_SHORT).show();
+    }
+
+    private void idNumberFive(double number1, double number2, double number3, double number4, double number5) {
+        if (idType == 1 && number1 > 0 && number2 > 0 && number3 > 0 && number4 > 0 && number5 > 0) {
+            r0 = 1 / number1 + 1 / number2 + 1 / number3 + 1 / number4 + 1 / number5;//  1/r0
+        } else if (idType == 2 && number1 > 0 && number2 > 0 && number3 > 0 && number4 > 0 && number5 > 0) {
+            r0 = number1 + number2 + number3 + number4 + number5;
+        }
+//            Toast.makeText(this, String.valueOf(r0), Toast.LENGTH_SHORT).show();
+    }
+
+    private void idNumberSix(double number1, double number2, double number3, double number4, double number5, double number6) {
+        if (idType == 1 && number1 > 0 && number2 > 0 && number3 > 0 && number4 > 0 && number5 > 0 && number6 > 0) {
+            r0 = 1 / number1 + 1 / number2 + 1 / number3 + 1 / number4 + 1 / number5 + 1 / number6;//  1/r0
+        } else if (idType == 2 && number1 > 0 && number2 > 0 && number3 > 0 && number4 > 0 && number5 > 0 && number6 > 0) {
+            r0 = number1 + number2 + number3 + number4 + number5 + number6;
+        }
+//            Toast.makeText(this, String.valueOf(r0), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFragmentInteraction() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .remove(informationFragment)
+                .commit();
     }
 }

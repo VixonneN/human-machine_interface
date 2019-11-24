@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">human-machine interface</string>
 
-        <!-- TODO: Remove or change this placeholder text -->
-        <string name="hello_blank_fragment">Hello blank fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="value">Расчитать</string>
     <string name="type_connection">Выберите тип соединения</string>
     <string name="number_of_elements">Выберите количество элементов</string>
