@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements InformationFragme
 
     private TextView tv1, tv2, tv3, tv4, tv5, tv6;
     private EditText et1, et2, et3, et4, et5, et6;
-    private double etS1, etS2, etS3, etS4, etS5, etS6, r0;
+    private double etS1 = 1, etS2 = 1, etS3 = 1, etS4 = 1, etS5 = 1, etS6 = 1, r0;
     private int idNumber;
     private int idType;
     private Button button;
