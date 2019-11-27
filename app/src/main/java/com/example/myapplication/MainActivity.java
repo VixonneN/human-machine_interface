@@ -150,6 +150,7 @@ public class MainActivity extends AppCompatActivity implements InformationFragme
         });
     }
 
+    //проверка на пустые значения
     private void button() {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,26 +196,30 @@ public class MainActivity extends AppCompatActivity implements InformationFragme
                             idNumberSix(etS1, etS2, etS3, etS4, etS5, etS6);
                             break;
                     }
+
+                    Log.d(LOG, String.valueOf(etS1));
+                    Log.d(LOG, String.valueOf(etS2));
+                    Log.d(LOG, String.valueOf(etS3));
+                    Log.d(LOG, String.valueOf(etS4));
+                    Log.d(LOG, String.valueOf(etS5));
+                    Log.d(LOG, String.valueOf(etS6));
+
+
+                    if (etS1 <= 0 || etS2 <= 0 || etS3 <= 0 || etS4 <= 0 || etS5 <= 0 || etS6 <= 0) {
+                        Toast.makeText(MainActivity.this, "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("idType", idType);
+                        bundle.putDouble("r0", r0);
+                        dialogFragment.setArguments(bundle);
+                        dialogFragment.show(getSupportFragmentManager(), "Dialog");
+                    }
+
                 } catch (NumberFormatException number) {
-                        Toast.makeText(MainActivity.this, "Проверьте значения на наличие данных", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Проверьте значения на наличие данных", Toast.LENGTH_SHORT).show();
                 }
 
-                Log.d(LOG, String.valueOf(etS1));
-                Log.d(LOG, String.valueOf(etS2));
-                Log.d(LOG, String.valueOf(etS3));
-                Log.d(LOG, String.valueOf(etS4));
-                Log.d(LOG, String.valueOf(etS5));
-                Log.d(LOG, String.valueOf(etS6));
 
-                if (etS1 <= 0 || etS2 <= 0 || etS3 <= 0 || etS4 <= 0 || etS5 <= 0 || etS6 <= 0) {
-                    Toast.makeText(MainActivity.this, "Проверьте введённые данные", Toast.LENGTH_SHORT).show();
-                } else {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("idType", idType);
-                    bundle.putDouble("r0", r0);
-                    dialogFragment.setArguments(bundle);
-                    dialogFragment.show(getSupportFragmentManager(), "Dialog");
-                }
             }
         });
     }
