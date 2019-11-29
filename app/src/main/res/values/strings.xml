@@ -2,7 +2,11 @@
     <string name="app_name">human-machine interface</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment">Добро пожаловать в приложение для расчёта сопротивления.
+        Для того, чтобы сделать расчёт нужных данных, выберите нужный тип сопротивления и количество элементов (до 6).
+        Если значение в десятичных дробях - напишите число через точку, к примеру 5.25 После ввода значение нажмите кнопку расчитать.
+        Помните, что значение сопротивления не может быть отрицательным или равно нулю.
+    </string>
     <string name="value">Расчитать</string>
     <string name="type_connection">Выберите тип соединения</string>
     <string name="number_of_elements">Выберите количество элементов</string>

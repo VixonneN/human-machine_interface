@@ -9,7 +9,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
-import com.example.myapplication.data_class.NumberOfConnectionData;
 import com.example.myapplication.data_class.TypeOfConnectionData;
 
 import java.util.ArrayList;
